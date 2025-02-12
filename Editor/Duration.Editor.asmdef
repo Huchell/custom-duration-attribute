@@ -1,0 +1,16 @@
+{
+    "name": "DurationAttribute.Editor",
+    "rootNamespace": "Huchell.Unity.Editor",
+    "references": [
+        "GUID:311852df30fbc83bca36b7e70ae53d06"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

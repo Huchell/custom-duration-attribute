@@ -1,0 +1,20 @@
+{
+    "name": "Duration.Editor.Tests",
+    "rootNamespace": "Huchell.Unity.Editor.Tests",
+    "references": [
+        "GUID:3263e0b14c6767b7997fa1a7daf154c0"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
