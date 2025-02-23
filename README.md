@@ -19,5 +19,5 @@ public class ExampleClass1 : ScriptableObject
 }
 ```
 
-[1 relative link]: ./Runtime/TimeUnit.cs
-[2 relative link]: ./Runtime/DurationAttribute.cs
+[1]: Runtime/TimeUnit.cs
+[2]: Runtime/DurationAttribute.cs
