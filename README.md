@@ -15,6 +15,6 @@ public class ExampleClass1 : ScriptableObject
     [SerializedField, Duration(TimeUnit.Second)]
     private int durationInSeconds = 500;
     [SerializedField, Duration(TimeUnit.Minute)]
-    private int durationInMinutes = 500;
+    private int durationInMinutes = 5;
 }
 ```
