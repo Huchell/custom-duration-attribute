@@ -1,4 +1,6 @@
 {
   "name": "com.huchell.unity.custom-duration-attribute",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "displayName": "Custom Duration Attribute",
+  "description": "A custom property drawer for displaying a duration in the Unity3d editor"
 }
