@@ -1,11 +1,17 @@
 using System;
 using UnityEditor;
+using UnityEngine;
 
 namespace Huchell.Unity.Editor
 {
 	[CustomPropertyDrawer(typeof(DurationAttribute))]
 	public sealed partial class DurationAttributePropertyDrawer : PropertyDrawer
 	{
+		public static class Content
+		{
+			public static readonly GUIContent InvalidTypeError = new GUIContent("Invalid Type for DurationAttribute");
+		}
+
 		public DurationAttribute Attribute => (DurationAttribute)this.attribute;
 
 		private static bool HasValidProperty(SerializedProperty property)

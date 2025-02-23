@@ -6,11 +6,6 @@ namespace Huchell.Unity
 	{
 		public TimeUnit BaseUnit { get; }
 
-		public DurationAttribute()
-		{
-			this.BaseUnit = TimeUnit.Seconds;
-		}
-
 		public DurationAttribute(TimeUnit baseUnit)
 		{
 			this.BaseUnit = baseUnit;
@@ -19,6 +14,7 @@ namespace Huchell.Unity
 
 	public enum TimeUnit
 	{
+		Ticks,
 		Milliseconds,
 		Seconds,
 		Minutes,

@@ -5,11 +5,6 @@ namespace Huchell.Unity.Editor
 {
 	public sealed partial class DurationAttributePropertyDrawer
 	{
-		public static class Content
-		{
-			public static readonly GUIContent InvalidTypeError = new GUIContent("Invalid Type for DurationAttribute");
-		}
-
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
 			if (!HasValidProperty(property))
@@ -22,7 +17,13 @@ namespace Huchell.Unity.Editor
 			timeStr = EditorGUI.DelayedTextField(position, label, timeStr);
 			if (GUI.changed)
 			{
-				SetTimeString(property, timeStr, this.Attribute.BaseUnit);
+				var normalizedTime = TimeStringConverter.Normalize(timeStr);
+				if (string.IsNullOrEmpty(normalizedTime))
+				{
+					return;
+				}
+
+				SetTimeString(property, normalizedTime, this.Attribute.BaseUnit);
 			}
 		}
 

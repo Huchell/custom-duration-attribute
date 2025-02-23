@@ -23,6 +23,7 @@ namespace Huchell.Unity.Editor
 			var timeSpan = ToTimeSpan(span);
 			return baseUnit switch
 			{
+				TimeUnit.Ticks => timeSpan.Ticks,
 				TimeUnit.Milliseconds => timeSpan.TotalMilliseconds,
 				TimeUnit.Seconds => timeSpan.TotalSeconds,
 				TimeUnit.Minutes => timeSpan.TotalMinutes,
@@ -37,6 +38,7 @@ namespace Huchell.Unity.Editor
 			var timeSpan = ToTimeSpan(span);
 			return baseUnit switch
 			{
+				TimeUnit.Ticks => timeSpan.Ticks,
 				TimeUnit.Milliseconds => (float)timeSpan.TotalMilliseconds,
 				TimeUnit.Seconds => (float)timeSpan.TotalSeconds,
 				TimeUnit.Minutes => (float)timeSpan.TotalMinutes,
@@ -51,6 +53,7 @@ namespace Huchell.Unity.Editor
 			var timeSpan = ToTimeSpan(span);
 			return baseUnit switch
 			{
+				TimeUnit.Ticks => timeSpan.Ticks,
 				TimeUnit.Milliseconds => (long)timeSpan.TotalMilliseconds,
 				TimeUnit.Seconds => (long)timeSpan.TotalSeconds,
 				TimeUnit.Minutes => (long)timeSpan.TotalMinutes,
@@ -65,6 +68,7 @@ namespace Huchell.Unity.Editor
 			var timeSpan = ToTimeSpan(span);
 			return baseUnit switch
 			{
+				TimeUnit.Ticks => (int)timeSpan.Ticks,
 				TimeUnit.Milliseconds => (int)timeSpan.TotalMilliseconds,
 				TimeUnit.Seconds => (int)timeSpan.TotalSeconds,
 				TimeUnit.Minutes => (int)timeSpan.TotalMinutes,
@@ -79,6 +83,7 @@ namespace Huchell.Unity.Editor
 			var timeSpan = ToTimeSpan(span);
 			return baseUnit switch
 			{
+				TimeUnit.Ticks => (ulong)timeSpan.Ticks,
 				TimeUnit.Milliseconds => (ulong)timeSpan.TotalMilliseconds,
 				TimeUnit.Seconds => (ulong)timeSpan.TotalSeconds,
 				TimeUnit.Minutes => (ulong)timeSpan.TotalMinutes,
@@ -93,6 +98,7 @@ namespace Huchell.Unity.Editor
 			var timeSpan = ToTimeSpan(span);
 			return baseUnit switch
 			{
+				TimeUnit.Ticks => (uint)timeSpan.Ticks,
 				TimeUnit.Milliseconds => (uint)timeSpan.TotalMilliseconds,
 				TimeUnit.Seconds => (uint)timeSpan.TotalSeconds,
 				TimeUnit.Minutes => (uint)timeSpan.TotalMinutes,
@@ -122,6 +128,7 @@ namespace Huchell.Unity.Editor
 		{
 			var timeSpan = baseUnit switch
 			{
+				TimeUnit.Ticks => new TimeSpan((long)time),
 				TimeUnit.Milliseconds => TimeSpan.FromMilliseconds(time),
 				TimeUnit.Seconds => TimeSpan.FromSeconds(time),
 				TimeUnit.Minutes => TimeSpan.FromMinutes(time),
@@ -136,6 +143,7 @@ namespace Huchell.Unity.Editor
 		{
 			var timeSpan = baseUnit switch
 			{
+				TimeUnit.Ticks => new TimeSpan((long)time),
 				TimeUnit.Milliseconds => TimeSpan.FromMilliseconds(time),
 				TimeUnit.Seconds => TimeSpan.FromSeconds(time),
 				TimeUnit.Minutes => TimeSpan.FromMinutes(time),
@@ -150,6 +158,7 @@ namespace Huchell.Unity.Editor
 		{
 			var timeSpan = baseUnit switch
 			{
+				TimeUnit.Ticks => new TimeSpan(time),
 				TimeUnit.Milliseconds => TimeSpan.FromMilliseconds(time),
 				TimeUnit.Seconds => TimeSpan.FromSeconds(time),
 				TimeUnit.Minutes => TimeSpan.FromMinutes(time),
@@ -164,6 +173,7 @@ namespace Huchell.Unity.Editor
 		{
 			var timeSpan = baseUnit switch
 			{
+				TimeUnit.Ticks => new TimeSpan(time),
 				TimeUnit.Milliseconds => TimeSpan.FromMilliseconds(time),
 				TimeUnit.Seconds => TimeSpan.FromSeconds(time),
 				TimeUnit.Minutes => TimeSpan.FromMinutes(time),
@@ -178,6 +188,7 @@ namespace Huchell.Unity.Editor
 		{
 			var timeSpan = baseUnit switch
 			{
+				TimeUnit.Ticks => new TimeSpan((long)time),
 				TimeUnit.Milliseconds => TimeSpan.FromMilliseconds(time),
 				TimeUnit.Seconds => TimeSpan.FromSeconds(time),
 				TimeUnit.Minutes => TimeSpan.FromMinutes(time),
@@ -192,6 +203,7 @@ namespace Huchell.Unity.Editor
 		{
 			var timeSpan = baseUnit switch
 			{
+				TimeUnit.Ticks => new TimeSpan(time),
 				TimeUnit.Milliseconds => TimeSpan.FromMilliseconds(time),
 				TimeUnit.Seconds => TimeSpan.FromSeconds(time),
 				TimeUnit.Minutes => TimeSpan.FromMinutes(time),
