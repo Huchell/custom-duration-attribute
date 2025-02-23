@@ -11,14 +11,4 @@ namespace Huchell.Unity
 			this.BaseUnit = baseUnit;
 		}
 	}
-
-	public enum TimeUnit
-	{
-		Ticks,
-		Milliseconds,
-		Seconds,
-		Minutes,
-		Hours,
-		Days,
-	}
 }
