@@ -89,7 +89,7 @@ namespace Duration
 				this.unitLength = unitLength;
 			}
 
-			public TimeSpan ToTimeSpan()
+			public TimeSpan? ToTimeSpan()
 			{
 				if (this.Unit.SequenceEqual("ms"))
 				{

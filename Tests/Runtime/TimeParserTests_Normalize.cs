@@ -8,7 +8,7 @@ namespace Duration.Tests
 		public void Normalize_Removes_OverflowValues()
 		{
 			var timeStr = "72s";
-			var result = TimeParser.Normalize(timeStr);
+			var result = TimeString.Normalize(timeStr);
 
 			var expected = "1m 12s";
 			Assert.That(result.ToString(), Is.EqualTo(expected));

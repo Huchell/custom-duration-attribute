@@ -3,20 +3,41 @@ using System.Text;
 
 namespace Duration
 {
-	public static class TimeParser
+	public static class TimeString
 	{
-		public static TimeSpan ToTimeSpan(ReadOnlySpan<char> span)
+		public static TimeSpan Parse(ReadOnlySpan<char> span)
 		{
 			var reader = new TimeStringReader(span);
 
-			TimeSpan finalTime = default;
+			TimeSpan finalTime = TimeSpan.Zero;
 			while (reader.Seek())
 			{
-				var currentTimeSpan = reader.CurrentToken.ToTimeSpan();
+				var currentTimeSpan = reader.CurrentToken.ToTimeSpan() ?? throw new Exception("Failed to parse time span");
 				finalTime += currentTimeSpan;
 			}
 
 			return finalTime;
+		}
+
+		public static bool TryParse(ReadOnlySpan<char> span, out TimeSpan timeSpan)
+		{
+			var reader = new TimeStringReader(span);
+
+			TimeSpan finalTime = TimeSpan.Zero;
+			while (reader.Seek())
+			{
+				var currentTimeSpan = reader.CurrentToken.ToTimeSpan();
+				if (currentTimeSpan is null)
+				{
+					timeSpan = TimeSpan.Zero;
+					return false;
+				}
+
+				finalTime += currentTimeSpan.Value;
+			}
+
+			timeSpan = finalTime;
+			return true;
 		}
 
 		public static ReadOnlySpan<char> FromTimeSpan(TimeSpan timeSpan)
@@ -37,8 +58,7 @@ namespace Duration
 
 		public static ReadOnlySpan<char> Normalize(ReadOnlySpan<char> span)
 		{
-			var timeSpan = ToTimeSpan(span);
-			return FromTimeSpan(timeSpan);
+			return FromTimeSpan(Parse(span));
 		}
 
 		private static void AppendUnit(StringBuilder builder, int time, ReadOnlySpan<char> unit)

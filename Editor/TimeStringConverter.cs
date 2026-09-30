@@ -5,7 +5,7 @@ namespace Huchell.Unity.Editor
 {
 	internal static class TimeStringConverter
 	{
-		public static TimeSpan ToTimeSpan(ReadOnlySpan<char> span) => TimeParser.ToTimeSpan(span);
+		public static TimeSpan ToTimeSpan(ReadOnlySpan<char> span) => TimeString.Parse(span);
 
 		public static double ToDouble(ReadOnlySpan<char> span, TimeUnit baseUnit)
 		{
@@ -97,7 +97,7 @@ namespace Huchell.Unity.Editor
 			};
 		}
 
-		public static string FromTimeSpan(TimeSpan timeSpan) => TimeParser.FromTimeSpan(timeSpan).ToString();
+		public static string FromTimeSpan(TimeSpan timeSpan) => TimeString.FromTimeSpan(timeSpan).ToString();
 
 		public static string FromDouble(double time, TimeUnit baseUnit)
 		{
@@ -189,7 +189,7 @@ namespace Huchell.Unity.Editor
 			return FromTimeSpan(timeSpan);
 		}
 
-		public static string Normalize(ReadOnlySpan<char> span) => TimeParser.Normalize(span).ToString();
+		public static string Normalize(ReadOnlySpan<char> span) => TimeString.Normalize(span).ToString();
 		public static string Normalize(string timeStr) => Normalize(timeStr.AsSpan());
 	}
 }
