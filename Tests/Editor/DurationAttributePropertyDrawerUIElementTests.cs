@@ -73,23 +73,23 @@ namespace Huchell.Unity.Editor.Tests
 		}
 
 		[Test]
-		public void Creates_ReadOnlyUI_WhenPropertyIsNotNumber()
+		public void Creates_DisabledUI_WhenPropertyIsNotNumber()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.invalidField));
-			Assert.That(ui.isReadOnly, Is.True);
+			var ui = this.CreatePropertyGUI(nameof(TestClass.invalidField));
+			Assert.That(ui.enabledSelf, Is.False);
 		}
 
 		[Test]
-		public void Creates_UI_WhenPropertyIsValid()
+		public void Creates_EnabledUI_WhenPropertyIsValid()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsField));
-			Assert.That(ui.isReadOnly, Is.False);
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			Assert.That(ui.enabledSelf, Is.True);
 		}
 
 		[Test]
 		public void Creates_UI_WithDisplayName()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsField));
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsField));
 			Assert.That(ui.label, Is.EqualTo(fieldProperty.displayName));
@@ -98,7 +98,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void IntField_IsSetCorrectly()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsField));
 			ui.value = "2m";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsField));
@@ -108,7 +108,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void LongField_IsSetCorrectly()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsFieldLong));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsFieldLong));
 			ui.value = "2m";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsFieldLong));
@@ -118,7 +118,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void FloatField_IsSetCorrectly()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsFieldSingle));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsFieldSingle));
 			ui.value = "2m";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsFieldSingle));
@@ -128,7 +128,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void DoubleField_IsSetCorrectly()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsFieldDouble));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsFieldDouble));
 			ui.value = "2m";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsFieldDouble));
@@ -138,7 +138,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void DoesNotUpdateProperty_WhenValueIsInvalid()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsField));
 			ui.value = "2f";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsField));
@@ -148,7 +148,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void UpdatesProperty_UsingCorrectTimeUnit()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.minuteField));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.minuteField));
 			ui.value = "2m";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.minuteField));
@@ -158,7 +158,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void UpdatesProperty_ToZero_WhenFieldSetToEmptyString()
 		{
-			TextField ui = (TextField)this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsField));
 			ui.value = "";
 
 			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsField));

@@ -32,6 +32,7 @@ namespace Huchell.Unity.Editor
 			root.AddToClassList("unity-base-field__aligned");
 			root.label = property.displayName;
 			root.isReadOnly = true;
+			root.SetEnabled(false);
 			root.value = Content.InvalidTypeError.text;
 			root.focusable = false;
 			return root;
