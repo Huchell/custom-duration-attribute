@@ -1,15 +1,15 @@
 using System;
 
-namespace Huchell.Unity.Editor
+namespace Duration
 {
 	internal ref struct TimeStringReader
 	{
-		private ReadOnlySpan<char> time;
+		private readonly ReadOnlySpan<char> time;
 		private int index;
 
 		private Token currentToken;
 
-		public Token CurrentToken
+		public readonly Token CurrentToken
 		{
 			get
 			{
@@ -41,21 +41,19 @@ namespace Huchell.Unity.Editor
 				return false;
 			}
 
-			var advance = Seek(this.index, this.time, static ch => char.IsDigit(ch) || ch == '.');
-			if (this.index + advance >= this.time.Length)
+			var valueAdvance = Seek(this.index, this.time, IsValidCharForValue);
+			if (this.index + valueAdvance >= this.time.Length)
 			{
 				return false;
 			}
 
-			var slice = this.time.Slice(this.index, advance);
-			var value = double.Parse(slice);
-			this.index += advance;
+			var valueSlice = this.time.Slice(this.index, valueAdvance);
 
-			advance = Seek(this.index, this.time, char.IsLetter);
-			var unit = this.time.Slice(this.index, advance);
-			this.index += advance;
+			var unitAdvance = Seek(this.index + valueAdvance, this.time, IsValidCharForUnit);
+			var unit = this.time.Slice(this.index + valueAdvance, unitAdvance);
 
-			this.currentToken = new(value, unit);
+			this.currentToken = new(this.index, valueAdvance, unitAdvance, this.time);
+			this.index += unitAdvance + valueAdvance;
 			return true;
 		}
 
@@ -70,15 +68,25 @@ namespace Huchell.Unity.Editor
 			return index - startIndex;
 		}
 
+		private static bool IsValidCharForValue(char ch) => char.IsDigit(ch) || ch == '.' || ch == ',';
+		private static bool IsValidCharForUnit(char ch) => char.IsLetter(ch);
+
 		public readonly ref struct Token
 		{
-			public readonly double Value;
-			public readonly ReadOnlySpan<char> Unit;
+			private readonly int startIndex;
+			private readonly int valueLength;
+			private readonly int unitLength;
+			private readonly ReadOnlySpan<char> time;
 
-			public Token(double value, ReadOnlySpan<char> unit)
+			public double Value => double.Parse(this.time[this.startIndex..(this.startIndex + this.valueLength)]);
+			public ReadOnlySpan<char> Unit => this.time[(this.startIndex + this.valueLength)..(this.startIndex + this.valueLength + this.unitLength)];
+
+			public Token(int startIndex, int valueLength, int unitLength, ReadOnlySpan<char> time)
 			{
-				this.Value = value;
-				this.Unit = unit;
+				this.time = time;
+				this.startIndex = startIndex;
+				this.valueLength = valueLength;
+				this.unitLength = unitLength;
 			}
 
 			public TimeSpan ToTimeSpan()

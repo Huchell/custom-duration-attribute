@@ -1,22 +1,11 @@
 using System;
-using System.Text;
+using Duration;
 
 namespace Huchell.Unity.Editor
 {
 	internal static class TimeStringConverter
 	{
-		public static TimeSpan ToTimeSpan(ReadOnlySpan<char> span)
-		{
-			var reader = new TimeStringReader(span);
-
-			var finalTime = TimeSpan.Zero;
-			while (reader.Seek())
-			{
-				finalTime += reader.CurrentToken.ToTimeSpan();
-			}
-
-			return finalTime;
-		}
+		public static TimeSpan ToTimeSpan(ReadOnlySpan<char> span) => TimeParser.ToTimeSpan(span);
 
 		public static double ToDouble(ReadOnlySpan<char> span, TimeUnit baseUnit)
 		{
@@ -108,21 +97,7 @@ namespace Huchell.Unity.Editor
 			};
 		}
 
-		public static string FromTimeSpan(TimeSpan timeSpan)
-		{
-			var builder = new StringBuilder();
-			AppendUnit(builder, timeSpan.Days, "d");
-			AppendUnit(builder, timeSpan.Hours, "h");
-			AppendUnit(builder, timeSpan.Minutes, "m");
-			AppendUnit(builder, timeSpan.Seconds, "s");
-			AppendUnit(builder, timeSpan.Milliseconds, "ms");
-
-			if (builder.Length == 0)
-			{
-				builder.Append("0s");
-			}
-			return builder.ToString();
-		}
+		public static string FromTimeSpan(TimeSpan timeSpan) => TimeParser.FromTimeSpan(timeSpan).ToString();
 
 		public static string FromDouble(double time, TimeUnit baseUnit)
 		{
@@ -214,27 +189,7 @@ namespace Huchell.Unity.Editor
 			return FromTimeSpan(timeSpan);
 		}
 
-		public static string Normalize(ReadOnlySpan<char> span)
-		{
-			return FromTimeSpan(ToTimeSpan(span));
-		}
-
+		public static string Normalize(ReadOnlySpan<char> span) => TimeParser.Normalize(span).ToString();
 		public static string Normalize(string timeStr) => Normalize(timeStr.AsSpan());
-
-		private static void AppendUnit(StringBuilder builder, int time, ReadOnlySpan<char> unit)
-		{
-			if (time == 0)
-			{
-				return;
-			}
-
-			if (builder.Length > 0)
-			{
-				builder.Append(' ');
-			}
-
-			builder.Append(time);
-			builder.Append(unit);
-		}
 	}
 }
