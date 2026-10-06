@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.huchell.ide.neovim": {
+      "version": "file:com.huchell.ide.neovim",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.huchell.unity.custom-duration-attribute": {
       "version": "file:src",
       "depth": 0,
