@@ -1,4 +1,20 @@
 {
-	"name": "DurationAttribute",
-	"rootNamespace": "Huchell.Unity"
+    "name": "DurationAttribute",
+    "rootNamespace": "Huchell.Unity",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.modules.uielements",
+            "expression": "1.0.0",
+            "define": "UNITY_UIELEMENTS"
+        }
+    ],
+    "noEngineReferences": false
 }

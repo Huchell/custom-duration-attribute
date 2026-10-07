@@ -2,7 +2,8 @@
     "name": "Duration.Tests",
     "rootNamespace": "Duration.Tests",
     "references": [
-        "GUID:311852df30fbc83bca36b7e70ae53d06"
+        "GUID:311852df30fbc83bca36b7e70ae53d06",
+        "GUID:1807f04281c5c7148a7c7ca29169ec02"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
