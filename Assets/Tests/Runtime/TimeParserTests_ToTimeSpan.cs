@@ -7,6 +7,8 @@ namespace Duration.Tests
 	{
 		[TestCase("1s", 1)]
 		[TestCase("2s", 2)]
+		[TestCase("-2s", -2)]
+		[TestCase("+2s", 2)]
 		public void Parse_CanConvertSecondString(string timeStr, int expectedSeconds)
 		{
 			var result = TimeString.Parse(timeStr.AsSpan());
@@ -17,6 +19,8 @@ namespace Duration.Tests
 
 		[TestCase("1m", 1)]
 		[TestCase("2m", 2)]
+		[TestCase("-2m", -2)]
+		[TestCase("+2m", 2)]
 		public void Parse_CanConvertMinuteString(string timeStr, int expectedMinutes)
 		{
 			var result = TimeString.Parse(timeStr.AsSpan());
@@ -27,6 +31,8 @@ namespace Duration.Tests
 
 		[TestCase("1ms", 1)]
 		[TestCase("2ms", 2)]
+		[TestCase("-2ms", -2)]
+		[TestCase("+2ms", 2)]
 		public void Parse_CanConvertMillisecondString(string timeStr, int expectedMilliseconds)
 		{
 			var result = TimeString.Parse(timeStr.AsSpan());
@@ -37,6 +43,8 @@ namespace Duration.Tests
 
 		[TestCase("1h", 1)]
 		[TestCase("2h", 2)]
+		[TestCase("-2h", -2)]
+		[TestCase("+2h", 2)]
 		public void Parse_CanConvertHourString(string timeStr, int expectedHours)
 		{
 			var result = TimeString.Parse(timeStr.AsSpan());
@@ -47,6 +55,8 @@ namespace Duration.Tests
 
 		[TestCase("1d", 1)]
 		[TestCase("2d", 2)]
+		[TestCase("-2d", -2)]
+		[TestCase("+2d", 2)]
 		public void Parse_CanConvertDayString(string timeStr, int expectedDays)
 		{
 			var result = TimeString.Parse(timeStr.AsSpan());

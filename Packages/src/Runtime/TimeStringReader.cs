@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Duration
 {
@@ -68,7 +69,7 @@ namespace Duration
 			return index - startIndex;
 		}
 
-		private static bool IsValidCharForValue(char ch) => char.IsDigit(ch) || ch == '.' || ch == ',';
+		private static bool IsValidCharForValue(char ch) => char.IsDigit(ch) || ch == '.' || ch == ',' || ch == '-' || ch == '+';
 		private static bool IsValidCharForUnit(char ch) => char.IsLetter(ch);
 
 		public readonly ref struct Token
