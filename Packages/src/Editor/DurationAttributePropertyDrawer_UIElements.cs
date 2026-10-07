@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
@@ -13,17 +14,11 @@ namespace Huchell.Unity.Editor
 				return this.CreateInvalidPropertyGUI(property);
 			}
 
-			var textField = new TextField(property.displayName);
-			textField.AddToClassList("unity-base-field__aligned");
-			textField.isDelayed = true;
-			textField.RegisterValueChangedCallback(this.TextField_ValueChanged);
-			textField.TrackPropertyValue(property, (property) => this.TextField_PropertyValueUpdated(textField, property));
-			textField.userData = property;
-
-			var timeStr = GetTimeString(property, this.Attribute.BaseUnit);
-			textField.SetValueWithoutNotify(timeStr);
-
-			return textField;
+			var durationField = new DurationElement(property.displayName);
+			durationField.AddToClassList("unity-base-field__aligned");
+			durationField.BindProperty(property);
+			durationField.isDelayed = true;
+			return durationField;
 		}
 
 		private VisualElement CreateInvalidPropertyGUI(SerializedProperty property)
@@ -36,36 +31,6 @@ namespace Huchell.Unity.Editor
 			root.value = Content.InvalidTypeError.text;
 			root.focusable = false;
 			return root;
-		}
-
-		private void TextField_PropertyValueUpdated(TextField textField, SerializedProperty property)
-		{
-			var time = GetTimeString(property, this.Attribute.BaseUnit);
-			textField.value = time;
-		}
-
-		private void TextField_ValueChanged(ChangeEvent<string> @event)
-		{
-			var field = (TextField)@event.target;
-			var property = (SerializedProperty)field.userData;
-
-			var normalizedTime = TimeStringConverter.Normalize(@event.newValue);
-			if (string.IsNullOrEmpty(normalizedTime))
-			{
-				field.SetValueWithoutNotify(@event.previousValue);
-				@event.StopImmediatePropagation();
-				return;
-			}
-
-			if (normalizedTime != @event.newValue)
-			{
-				field.value = normalizedTime;
-				return;
-			}
-
-			Undo.RecordObjects(property.serializedObject.targetObjects, "DurationValueUpdate");
-			SetTimeString(property, normalizedTime, this.Attribute.BaseUnit);
-			property.serializedObject.ApplyModifiedProperties();
 		}
 	}
 }
