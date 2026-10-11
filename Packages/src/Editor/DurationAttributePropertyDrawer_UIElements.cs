@@ -8,22 +8,32 @@ namespace Huchell.Unity.Editor
 	{
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
 		{
-			if (!HasValidProperty(property))
+			return property.propertyType switch
 			{
-				return this.CreateInvalidPropertyGUI(property);
-			}
+				SerializedPropertyType.Integer => this.CreateIntegerDurationField(property),
+				SerializedPropertyType.Float => this.CreateDoubleDurationField(property),
+				_ => this.CreateInvalidPropertyGUI(property),
+			};
+		}
 
-			var textField = new TextField(property.displayName);
-			textField.AddToClassList("unity-base-field__aligned");
-			textField.isDelayed = true;
-			textField.RegisterValueChangedCallback(this.TextField_ValueChanged);
-			textField.TrackPropertyValue(property, (property) => this.TextField_PropertyValueUpdated(textField, property));
-			textField.userData = property;
+		private IntegerDurationField CreateIntegerDurationField(SerializedProperty property)
+		{
+			var field = new IntegerDurationField(property.displayName);
+			field.BaseUnit = this.Attribute.BaseUnit;
+			field.isDelayed = true;
+			field.AddToClassList("unity-base-field__aligned");
+			field.BindProperty(property);
+			return field;
+		}
 
-			var timeStr = GetTimeString(property, this.Attribute.BaseUnit);
-			textField.SetValueWithoutNotify(timeStr);
-
-			return textField;
+		private DoubleDurationField CreateDoubleDurationField(SerializedProperty property)
+		{
+			var field = new DoubleDurationField(property.displayName);
+			field.BaseUnit = this.Attribute.BaseUnit;
+			field.isDelayed = true;
+			field.AddToClassList("unity-base-field__aligned");
+			field.BindProperty(property);
+			return field;
 		}
 
 		private VisualElement CreateInvalidPropertyGUI(SerializedProperty property)
@@ -36,36 +46,6 @@ namespace Huchell.Unity.Editor
 			root.value = Content.InvalidTypeError.text;
 			root.focusable = false;
 			return root;
-		}
-
-		private void TextField_PropertyValueUpdated(TextField textField, SerializedProperty property)
-		{
-			var time = GetTimeString(property, this.Attribute.BaseUnit);
-			textField.value = time;
-		}
-
-		private void TextField_ValueChanged(ChangeEvent<string> @event)
-		{
-			var field = (TextField)@event.target;
-			var property = (SerializedProperty)field.userData;
-
-			var normalizedTime = TimeStringConverter.Normalize(@event.newValue);
-			if (string.IsNullOrEmpty(normalizedTime))
-			{
-				field.SetValueWithoutNotify(@event.previousValue);
-				@event.StopImmediatePropagation();
-				return;
-			}
-
-			if (normalizedTime != @event.newValue)
-			{
-				field.value = normalizedTime;
-				return;
-			}
-
-			Undo.RecordObjects(property.serializedObject.targetObjects, "DurationValueUpdate");
-			SetTimeString(property, normalizedTime, this.Attribute.BaseUnit);
-			property.serializedObject.ApplyModifiedProperties();
 		}
 	}
 }

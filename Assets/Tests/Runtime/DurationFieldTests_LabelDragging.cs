@@ -6,9 +6,9 @@ using UnityEngine.UIElements.TestFramework;
 
 namespace Huchell.Duration
 {
-	public sealed class DurationElementLabelDraggingTests : UITestFixture
+	public sealed class DurationFieldTests_LabelDragging : UITestFixture
 	{
-		private DurationElement field;
+		private DurationField field;
 
 		[SetUp]
 		public void SetUp()
@@ -16,7 +16,7 @@ namespace Huchell.Duration
 			this.panelSize = new(500, 100);
 
 			this.field = new("Label");
-			this.rootVisualElement.Add(field);
+			this.rootVisualElement.Add(this.field);
 			this.simulate.FrameUpdate();
 		}
 
