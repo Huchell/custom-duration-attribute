@@ -66,7 +66,7 @@ namespace Huchell.Unity.Editor.Tests
 		[Test]
 		public void Creates_EnabledUI_WhenPropertyIsValid()
 		{
-			var ui = (BaseField<string>)this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			var ui = this.CreatePropertyGUI(nameof(TestClass.secondsField));
 			this.simulate.FrameUpdate();
 
 			Assert.That(ui.enabledSelf, Is.True);

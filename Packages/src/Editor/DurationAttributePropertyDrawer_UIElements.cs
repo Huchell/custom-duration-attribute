@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
@@ -9,16 +8,32 @@ namespace Huchell.Unity.Editor
 	{
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
 		{
-			if (!HasValidProperty(property))
+			return property.propertyType switch
 			{
-				return this.CreateInvalidPropertyGUI(property);
-			}
+				SerializedPropertyType.Integer => this.CreateIntegerDurationField(property),
+				SerializedPropertyType.Float => this.CreateDoubleDurationField(property),
+				_ => this.CreateInvalidPropertyGUI(property),
+			};
+		}
 
-			var durationField = new DurationElement(property.displayName);
-			durationField.AddToClassList("unity-base-field__aligned");
-			durationField.BindProperty(property);
-			durationField.isDelayed = true;
-			return durationField;
+		private IntegerDurationField CreateIntegerDurationField(SerializedProperty property)
+		{
+			var field = new IntegerDurationField(property.displayName);
+			field.BaseUnit = this.Attribute.BaseUnit;
+			field.isDelayed = true;
+			field.AddToClassList("unity-base-field__aligned");
+			field.BindProperty(property);
+			return field;
+		}
+
+		private DoubleDurationField CreateDoubleDurationField(SerializedProperty property)
+		{
+			var field = new DoubleDurationField(property.displayName);
+			field.BaseUnit = this.Attribute.BaseUnit;
+			field.isDelayed = true;
+			field.AddToClassList("unity-base-field__aligned");
+			field.BindProperty(property);
+			return field;
 		}
 
 		private VisualElement CreateInvalidPropertyGUI(SerializedProperty property)

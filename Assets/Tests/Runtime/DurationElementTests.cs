@@ -1,7 +1,6 @@
 using Duration;
 using Huchell.Unity;
 using NUnit.Framework;
-using UnityEngine.UIElements;
 using UnityEngine.UIElements.TestFramework;
 
 namespace Huchell.Duration
@@ -13,7 +12,6 @@ namespace Huchell.Duration
 		[SetUp]
 		public void SetUp()
 		{
-			new IntegerField();
 			panelSize = new(100, 100);
 
 			field = new();
