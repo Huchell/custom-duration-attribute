@@ -5,17 +5,17 @@ using UnityEngine.UIElements.TestFramework;
 
 namespace Huchell.Duration
 {
-	public sealed class DurationElementValueTests : UITestFixture
+	public sealed class DurationFieldTests_Value : UITestFixture
 	{
-		private DurationElement field;
+		private DurationField field;
 
 		[SetUp]
 		public void SetUp()
 		{
-			panelSize = new(100, 100);
+			this.panelSize = new(100, 100);
 
-			field = new();
-			rootVisualElement.Add(field);
+			this.field = new();
+			this.rootVisualElement.Add(field);
 		}
 
 		[TestCase("1m")]
@@ -24,23 +24,23 @@ namespace Huchell.Duration
 		{
 			var timeSpan = TimeString.Parse(timeSpanStr);
 
-			field.value = timeSpan;
+			this.field.value = timeSpan;
 
-			Assert.That(field.text, Is.EqualTo(timeSpanStr));
+			Assert.That(this.field.text, Is.EqualTo(timeSpanStr));
 		}
 
 		[TestCase("1m")]
 		[TestCase("1h")]
 		public void Text_SetsValue_WhenTextIsValidTimeSpanString(string timeSpanStr)
 		{
-			simulate.FrameUpdate();
+			this.simulate.FrameUpdate();
 
-			field.Focus();
-			simulate.TypingText(timeSpanStr);
-			simulate.FrameUpdate();
+			this.field.Focus();
+			this.simulate.TypingText(timeSpanStr);
+			this.simulate.FrameUpdate();
 
 			var timeSpan = TimeString.Parse(timeSpanStr);
-			Assert.That(field.value, Is.EqualTo(timeSpan));
+			Assert.That(this.field.value, Is.EqualTo(timeSpan));
 		}
 	}
 }

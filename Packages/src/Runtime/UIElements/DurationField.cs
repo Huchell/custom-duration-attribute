@@ -6,27 +6,27 @@ using UnityEngine.UIElements;
 
 namespace Huchell.Unity
 {
-	public sealed class DurationElement : TextValueField<TimeSpan>
+	public sealed class DurationField : TextValueField<TimeSpan>
 	{
-		public DurationElement() : this(null, TimeSpan.Zero)
+		public DurationField() : this(null, TimeSpan.Zero)
 		{
 		}
 
-		public DurationElement(string label) : this(label, TimeSpan.Zero)
+		public DurationField(string label) : this(label, TimeSpan.Zero)
 		{
 		}
 
-		public DurationElement(TimeSpan value) : this(null, value)
+		public DurationField(TimeSpan value) : this(null, value)
 		{
 		}
 
-		public DurationElement(string label, TimeSpan value) : base(label, int.MaxValue, new DurationFieldInput())
+		public DurationField(string label, TimeSpan value) : base(label, int.MaxValue, new DurationFieldInput())
 		{
 			this.value = value;
 			this.AddLabelDragger<TimeSpan>();
 		}
 
-		private DurationFieldInput DurationInput => (DurationFieldInput)base.textInputBase;
+		private DurationFieldInput DurationInput => (DurationFieldInput)this.textInputBase;
 
 		public TimeUnit Unit { get; set; } = TimeUnit.Seconds;
 
@@ -47,7 +47,7 @@ namespace Huchell.Unity
 
 		private sealed class DurationFieldInput : TextValueInput
 		{
-			private DurationElement ParentDurationField => (DurationElement)base.parent;
+			private DurationField ParentDurationField => (DurationField)this.parent;
 
 			protected override string allowedCharacters => "0123456789 dhms";
 
@@ -60,12 +60,12 @@ namespace Huchell.Unity
 				long deltaNum = (long)Math.Round((double)NumericFieldDraggerUtility.NiceDelta(delta, acceleration) * dragSensitivity);
 				TimeSpan deltaTimeSpan = TimeUnitUtility.ConvertFromInt(deltaNum, this.ParentDurationField.Unit);
 
-				TimeSpan currentValue = this.StringToValue(base.text);
+				TimeSpan currentValue = this.StringToValue(this.text);
 				TimeSpan newValue = currentValue + deltaTimeSpan;
 
 				if (this.textEdition.isDelayed)
 				{
-					base.text = this.ValueToString(newValue);
+					this.text = this.ValueToString(newValue);
 					return;
 				}
 
