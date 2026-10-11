@@ -175,17 +175,23 @@ namespace Huchell.Unity.Editor.Tests
 			Assert.That(fieldProperty.intValue, Is.EqualTo(2));
 		}
 
-		// [Test]
-		// public void UpdatesProperty_ToZero_WhenFieldSetToEmptyString()
-		// {
-		// 	var ui = this.CreatePropertyGUI(nameof(TestClass.secondsField));
-		// 	ui.Focus();
-		// 	this.simulate.TypingText("2m");
-		// 	this.simulate.FrameUpdate();
-		//
-		// 	var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsField));
-		// 	Assert.That(fieldProperty.intValue, Is.EqualTo(0));
-		// }
+		[Test]
+		public void UpdatesProperty_ToZero_WhenFieldSetToEmptyString()
+		{
+			var ui = this.CreatePropertyGUI(nameof(TestClass.secondsField));
+			ui.Focus();
+			this.simulate.TypingText("2m");
+			this.simulate.KeyPress(KeyCode.Return);
+			this.simulate.FrameUpdate();
+
+			this.simulate.KeyPress(KeyCode.Backspace);
+			this.simulate.KeyPress(KeyCode.Backspace);
+			this.simulate.KeyPress(KeyCode.Return);
+			this.simulate.FrameUpdate();
+
+			var fieldProperty = this.serializedObject.FindProperty(nameof(TestClass.secondsField));
+			Assert.That(fieldProperty.intValue, Is.EqualTo(0));
+		}
 
 		private class TestClass : ScriptableObject
 		{
